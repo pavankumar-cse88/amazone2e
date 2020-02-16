@@ -23,16 +23,13 @@ public class Button implements Clickable {
 
     }
 
-
-
-
     @Override
     public void click() throws Exception {
         getButton().click();
 
     }
 
-    WebElement getButton() throws Exception {
+    public WebElement getButton() throws Exception {
         By locator = elementLocator.getElement(textBoxLocatorType,textBoxLocatorValue);
         WebDriverWait wait = new WebDriverWait(driver, 5);
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));

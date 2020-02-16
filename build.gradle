@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat
+
 plugins {
     id 'java'
 }
@@ -19,4 +21,28 @@ dependencies {
 
 
 
+}
+
+
+test {
+    def formatter = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss")
+    def logFileDateAppendText = formatter.format(new Date()).toString()
+    systemProperty("current.date.time", logFileDateAppendText)
+
+    def remoteExecution = System.getProperty("remoteExecution") ?: "true"
+    systemProperty("remoteExecution", remoteExecution)
+
+    def environment = System.getProperty("Environment") ?: "dev"
+    systemProperty("Environment", environment)
+    println("Environment: $environment")
+
+    def suite = System.getProperty("testType") ?: "e2e"
+    systemProperty("testType", suite)
+
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        outputDirectory = file("$project.buildDir//testngOutput")
+        suites 'src/test/resources/runList/' + suite.toLowerCase() + 'Tests.xml'
+    }
 }

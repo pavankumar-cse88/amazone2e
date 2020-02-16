@@ -1,10 +1,8 @@
-package tests;
+package tests.portal;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeMethod;
 import ui.core.driver.DriverProviderFactory;
-import ui.core.driver.WebDriverProvider;
 
 class BaseTest {
 

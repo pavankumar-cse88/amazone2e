@@ -7,9 +7,9 @@ import ui.core.uicomponents.webportal.TextBox;
 
 public class UserNamePage {
 
-     WebDriver driver;
-     TextBox userNameTextBox;
-     Button userNamePageContinueButton;
+     private WebDriver driver;
+     private TextBox userNameTextBox;
+     private Button userNamePageContinueButton;
 
     UserNamePage(WebDriver driver){
         this.driver = driver;
