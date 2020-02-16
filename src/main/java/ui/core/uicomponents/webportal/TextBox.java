@@ -34,7 +34,7 @@ public class TextBox implements Settable, Gettable {
 
     }
 
-    WebElement getTextBox() throws Exception {
+    private WebElement getTextBox() throws Exception {
         By locator = elementLocator.getElement(textBoxLocatorType, textBoxLocatorValue);
         WebDriverWait wait = new WebDriverWait(driver, 10);
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
