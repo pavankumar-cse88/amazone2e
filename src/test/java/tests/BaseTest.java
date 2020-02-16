@@ -3,17 +3,19 @@ package tests;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeMethod;
+import ui.core.driver.DriverProviderFactory;
 import ui.core.driver.WebDriverProvider;
 
 class BaseTest {
 
     WebDriver driver ;
-    WebDriverProvider webDriverProvider = new WebDriverProvider();
+    DriverProviderFactory driverProviderFactory = new DriverProviderFactory();
     @BeforeMethod
-    void initializeBrowser(){
+    void initializeBrowser() throws Exception {
 
-        WebDriverManager.chromedriver().setup();
-        driver = webDriverProvider.initializeDriver();
+       driver = driverProviderFactory.getWebDriver().instance("chrome");
+
+
 
     }
 

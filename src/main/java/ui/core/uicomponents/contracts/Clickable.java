@@ -1,5 +1,6 @@
 package ui.core.uicomponents.contracts;
 
 public interface Clickable {
-    void click();
+
+    void click() throws Exception;
 }

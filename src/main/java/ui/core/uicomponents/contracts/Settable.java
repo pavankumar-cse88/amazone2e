@@ -2,6 +2,6 @@ package ui.core.uicomponents.contracts;
 
 public interface Settable {
 
-    void setText(String text);
+    void setText(String text) throws Exception;
 
 }
