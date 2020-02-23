@@ -7,19 +7,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import ui.core.uicomponents.contracts.Gettable;
 import ui.core.uicomponents.contracts.Settable;
 
-import org.openqa.selenium.By;
-import ui.core.uicomponents.utilities.ElementLocator;
-
 public class TextBox implements Settable, Gettable {
-    private String textBoxLocatorValue;
-    private String textBoxLocatorType;
-    private WebDriver driver;
-    ElementLocator elementLocator =  new ElementLocator();
 
-    public TextBox(WebDriver driver, String textBoxLocatorType,String textBoxLocatorValue){
+    private WebDriver driver;
+    private WebElement textBox;
+
+    public TextBox(WebDriver driver, WebElement textBox) {
         this.driver = driver;
-        this.textBoxLocatorValue = textBoxLocatorValue;
-        this.textBoxLocatorType = textBoxLocatorType;
+        this.textBox = textBox;
 
     }
 
@@ -29,15 +24,14 @@ public class TextBox implements Settable, Gettable {
     }
 
     @Override
-    public void setText(String text) throws Exception {
+    public void setText(String text) {
      getTextBox().sendKeys(text);
 
     }
 
-    private WebElement getTextBox() throws Exception {
-        By locator = elementLocator.getElement(textBoxLocatorType, textBoxLocatorValue);
+    private WebElement getTextBox() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        return wait.until(ExpectedConditions.visibilityOf(textBox));
 
     }
 

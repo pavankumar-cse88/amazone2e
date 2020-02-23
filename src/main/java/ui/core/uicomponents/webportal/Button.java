@@ -1,27 +1,21 @@
 package ui.core.uicomponents.webportal;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ui.core.uicomponents.contracts.Clickable;
-import ui.core.uicomponents.utilities.ElementLocator;
 
 public class Button implements Clickable {
 
     WebDriver driver;
-    String textBoxLocatorValue;
-    String textBoxLocatorType;
-    ElementLocator elementLocator =  new ElementLocator();
+    private WebElement button;
 
-
-    public Button(WebDriver driver,String textBoxLocatorValue,String textBoxLocatorType){
+    public Button(WebDriver driver, WebElement button) {
         this.driver = driver;
-        this.textBoxLocatorValue = textBoxLocatorValue;
-        this.textBoxLocatorType = textBoxLocatorType;
-
+        this.button = button;
     }
+
 
     @Override
     public void click() throws Exception {
@@ -29,10 +23,9 @@ public class Button implements Clickable {
 
     }
 
-    public WebElement getButton() throws Exception {
-        By locator = elementLocator.getElement(textBoxLocatorType,textBoxLocatorValue);
+    public WebElement getButton() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
-        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        return wait.until(ExpectedConditions.visibilityOf(button));
 
     }
 }
