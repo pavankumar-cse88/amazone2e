@@ -8,7 +8,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class WebDriverProvider implements Driver {
 
-    WebDriver driver;
+    private static WebDriver driver;
     @Override
      public  <T> T getDriverInstance(String driverName) throws Exception {
         try {
@@ -36,7 +36,10 @@ public class WebDriverProvider implements Driver {
 
 
     public WebDriver instance(String driverName) throws Exception {
-       return( getDriverInstance(driverName));
+        if(driver == null)
+                return( getDriverInstance(driverName));
+        else
+            return driver;
     }
 
 
