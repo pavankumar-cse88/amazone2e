@@ -1,0 +1,17 @@
+{
+  "browser": "Chrome",
+  "implicitTimeOutInSeconds": 5,
+  "pageLoadTimeOutInSeconds": 180,
+  "flags": [
+    "start-fullscreen",
+    "enable-automation",
+    "--no-sandbox",
+    "--disable-infobars",
+    "--disable-browser-side-navigation",
+    "--disable-dev-shm-usage",
+    "--dns-prefetch-disable",
+    "--disable-gpu",
+    "--disable-extensions",
+    "--disable-features=VizDisplayCompositor"
+  ]
+}

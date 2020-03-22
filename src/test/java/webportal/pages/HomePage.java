@@ -1,37 +1,79 @@
 package webportal.pages;
 
-import constants.LocatorTypes;
+import jdk.internal.vm.compiler.collections.EconomicMap;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import ui.core.uicomponents.webportal.Button;
-import ui.core.uicomponents.webportal.HyperLink;
+import org.openqa.selenium.support.ui.Select;
+import ui.core.uicomponents.webportal.DropDown;
+import ui.core.uicomponents.webportal.Element;
+import ui.core.uicomponents.webportal.TextBox;
+
+import java.util.List;
 
 public class HomePage {
     private WebDriver driver;
-    private HyperLink helloSignInHyperLink;
-    private Button singInButton;
+    private Element element;
+    private TextBox searchBarTextBox;
+    private DropDown keywordSuggestionsDropDown;
+
+    @FindBy(xpath = "//span[contains(text(),'Hello. Sign in')]")
+    WebElement helloSignIn;
+
+    @FindBy(xpath = "//div[@id='nav-tools']//a[@data-nav-role='signin']")
+    WebElement singIn;
+
+    @FindBy(css = "input#twotabsearchtextbox")
+    WebElement searchBar;
+
+    String keywordSuggestions = "div#suggestions-template>div>div";
+
 
     public HomePage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        helloSignInHyperLink = new HyperLink(driver,
-                "//span[contains(text(),'Hello. Sign in')]", LocatorTypes.xpath);
-        singInButton = new Button(driver,
-                "//div[@id='nav-tools']//a[@data-nav-role='signin']",LocatorTypes.xpath);
-
-    }
-     public UserNamePage clickOnLogin() throws Exception {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(helloSignInHyperLink.getHyperLink()).build().perform();
-        actions.moveToElement(singInButton.getButton()).click().build().perform();
-        return new UserNamePage(driver);
-
+        createInstanceForContracts();
 
     }
 
+    public UserNamePage clickOnLogin() {
+        try {
+            element.mouseHoverAndClick(helloSignIn, singIn);
+            return new UserNamePage(driver);
+        }
+        catch(Exception error){
+            throw new RuntimeException("Error in clicking the Login Button"+ error.getMessage());
+        }
+    }
 
+    public HomePage enterKeywordInSearchBar(String keyword) {
+        try {
+            searchBarTextBox.setText(keyword);
+            return new HomePage(driver);
+        }
+        catch(Exception error) {
+            throw new RuntimeException("Error getting chrome configurations." + error.getMessage());
+        }
+    }
 
+    public List<String> getSuggestionsMatching(String keyword){
+        try {
+            return keywordSuggestionsDropDown.getValues(keyword);
+        }
+        catch(Exception error){
+            throw new RuntimeException("Error getting search suggestions" + error.getMessage());
+        }
+    }
 
-
+    private void createInstanceForContracts(){
+        try {
+            element = new Element(driver);
+            searchBarTextBox = new TextBox(driver, searchBar);
+            keywordSuggestionsDropDown = new DropDown(driver, keywordSuggestions);
+        }
+        catch(Exception error){
+            throw new RuntimeException("Error in creating the instances for contracts" + error.getMessage());
+        }
+    }
 }
