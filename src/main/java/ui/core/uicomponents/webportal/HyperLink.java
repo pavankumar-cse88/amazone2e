@@ -1,29 +1,24 @@
 package ui.core.uicomponents.webportal;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ui.core.uicomponents.contracts.Clickable;
 import ui.core.uicomponents.contracts.Gettable;
-import ui.core.uicomponents.utilities.ElementLocator;
 
 public class HyperLink implements Clickable, Gettable {
 
     private WebDriver driver;
-    private String hyperLinkLocatorValue;
-    private String hyperLinkLocatorType;
-    private ElementLocator elementLocator =  new ElementLocator();
+    WebElement hyperLink;
 
-    public HyperLink(WebDriver driver, String hyperLinkLocatorValue, String hyperLinkLocatorType){
+    public HyperLink(WebDriver driver, WebElement hyperLink){
         this.driver = driver;
-        this.hyperLinkLocatorValue= hyperLinkLocatorValue;
-        this.hyperLinkLocatorType= hyperLinkLocatorType;
+        this.hyperLink = hyperLink;
 
     }
     @Override
-    public void click() throws Exception {
+    public void click() {
         getHyperLink().click();
 
     }
@@ -33,12 +28,10 @@ public class HyperLink implements Clickable, Gettable {
         return null;
     }
 
-    public WebElement getHyperLink() throws Exception {
+    public WebElement getHyperLink() {
 
-        By locator = elementLocator.getElement(hyperLinkLocatorType,hyperLinkLocatorValue);
         WebDriverWait wait = new WebDriverWait(driver, 5);
-        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        return wait.until(ExpectedConditions.visibilityOf(hyperLink));
 
     }
-
 }

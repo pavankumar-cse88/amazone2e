@@ -5,6 +5,8 @@
     <test name="Amazon Portal Tests">
         <classes>
             <class name="tests.portal.LoginTests"></class>
+            <class name="tests.portal.SearchBarTests"></class>
+
         </classes>
     </test>
 
