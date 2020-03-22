@@ -30,7 +30,7 @@ public class TextBox implements Settable, Gettable {
     }
 
     private WebElement getTextBox() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 25);
         return wait.until(ExpectedConditions.visibilityOf(textBox));
 
     }

@@ -16,26 +16,33 @@ public class UserNamePage {
      @FindBy(name = "email")
      WebElement emailTextBox;
 
-
      @FindBy(id="continue")
      WebElement continueButton;
 
-
-    UserNamePage(WebDriver driver){
+     UserNamePage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(this.driver, this);
-        userNameTextBox = new TextBox(this.driver,emailTextBox);
-        userNamePageContinueButton = new Button(this.driver,continueButton);
+        createInstanceForContracts();
+     }
 
-    }
+     public PasswordPage setUserNameAndClickContinue(String userName) {
+         try {
+             userNameTextBox.setText(userName);
+             userNamePageContinueButton.click();
+             return new PasswordPage(driver);
+         }
+         catch(Exception error){
+             throw new RuntimeException("Error in navigating to password page" + error.getMessage());
+         }
+     }
 
-    public PasswordPage setUserNameAndClickContinue(String userName) throws Exception {
-        userNameTextBox.setText(userName);
-        userNamePageContinueButton.click();
-        return new PasswordPage(driver);
-    }
-
-
-
-
+     void createInstanceForContracts(){
+         try {
+             userNameTextBox = new TextBox(this.driver, emailTextBox);
+             userNamePageContinueButton = new Button(this.driver, continueButton);
+         }
+         catch(Exception error){
+             throw new RuntimeException("Error in creating instances" + error.getMessage());
+         }
+     }
 }

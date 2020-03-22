@@ -19,17 +19,29 @@ public class PasswordPage {
     @FindBy(id = "signInSubmit" )
     WebElement continueSinIn;
 
-
     PasswordPage(WebDriver driver){
         this.driver=driver;
         PageFactory.initElements(driver, this);
-        passwordTextBox =  new TextBox(driver,password);
-        continueSignInButton = new Button(driver,continueSinIn);
+        createInstanceForContracts();
+    }
+    public void enterPasswordAndClickOnLoginButton(String password)  {
+        try {
+            passwordTextBox.setText(password);
+            continueSignInButton.click();
+        }
+        catch (Exception error){
+            throw new RuntimeException("Error in entering password" + error.getMessage());
+        }
 
     }
-    public void enterPasswordAndClickOnLoginButton(String password) throws Exception {
-        passwordTextBox.setText(password);
-        continueSignInButton.click();
 
+    void createInstanceForContracts(){
+        try {
+            passwordTextBox = new TextBox(driver, password);
+            continueSignInButton = new Button(driver, continueSinIn);
+        }
+        catch (Exception error){
+            throw new RuntimeException("Error in Creating instances" + error.getMessage());
+    }
     }
 }
